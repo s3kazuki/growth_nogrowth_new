@@ -28,7 +28,7 @@ st.sidebar.write(d_out.describe())
 
 option = st.selectbox(
     'How would you like to change?',
-     ('pH', 'a$_w$', 'Temperature'))
+     ('pH', 'Water activity', 'Temperature'))
 
 #全要因総当たりモデル
 @st.cache(allow_output_mutation=True)
@@ -94,6 +94,7 @@ if option == 'pH':
 	
 	#pHの値によるグラフの作成
 	dpH = d_out[d_out['pH'] == pH_input]
+	dpH = dpH[dpH['N0'] == n0_input]
 	dpH_g = dpH[dpH['gng'] == 1]
 	dpH_ng = dpH[dpH['gng'] == 0]
 	
@@ -137,13 +138,14 @@ if option == 'pH':
 	ax.legend(fontsize=12)
 	st.pyplot(fig)
 
-if option == 'a$_w$':
+if option == 'Water activity':
 	#awの入力
 	aw_input = st.slider("a$_w$", 0.89, 1.00, 0.97, step=0.005)
 	n0_input = st.slider("N$_0$", 1.0, 6.8, 3.0, step=0.2)
 	
 	#Saltの値によるグラフの作成
 	daw = d_out[d_out['aw'] == aw_input]
+	daw = daw[daw['N0'] == n0_input]
 	daw_g = daw[daw['gng'] == 1]
 	daw_ng = daw[daw['gng'] == 0]
 	
@@ -195,6 +197,7 @@ if option == 'Temperature':
 	
 	#温度の値によるグラフの作成
 	dTemperature = d_out[d_out['Temp'] == temperature_input]
+	dTemperature = dTemperature[dTemperature['N0'] == n0_input]
 	dTemperature_g = dTemperature[dTemperature['gng'] == 1]
 	dTemperature_ng = dTemperature[dTemperature['gng'] == 0]
 	
