@@ -115,7 +115,7 @@ if option == 'pH':
 		)
 		# 改良された確率計算式
 		base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
-			P = 1 - (1 - base_prob) ** n0_input
+		P = 1 - (1 - base_prob) ** n0_input
 		return P
 	
 	X, Y = np.meshgrid(x, y)
@@ -165,7 +165,7 @@ if option == 'a$_w$':
 		)
 		# 改良された確率計算式
 		base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
-			P = 1 - (1 - base_prob) ** n0_input
+		P = 1 - (1 - base_prob) ** n0_input
 		return P
 	
 	X, Y = np.meshgrid(x, y)
@@ -215,7 +215,7 @@ if option == 'Temperature':
 		)
 		# 改良された確率計算式
 		base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
-			P = 1 - (1 - base_prob) ** n0_input
+		P = 1 - (1 - base_prob) ** n0_input
 		return P
 	
 	X, Y = np.meshgrid(x, y)
