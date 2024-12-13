@@ -8,7 +8,7 @@ from scipy.optimize import minimize
 #データの読み込み
 @st.cache(allow_output_mutation=True)
 def load_data():
-    d = pd.read_csv("data_demo.csv")
+    d = pd.read_csv("data_demo.csv").iloc[:, 1:]
     return d
 d = load_data()
 
@@ -63,6 +63,8 @@ def negative_log_likelihood(params, data):
     Temp, pH, Salt, n: 説明変数
     gng: 応答変数（観測データ, 0 または 1）
     """
+    #gngの定義
+    gng = data['gng'] 
     # 確率 p を計算
     p = probability(params, data)
     # 負の対数尤度の計算
