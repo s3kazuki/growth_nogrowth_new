@@ -87,7 +87,7 @@ fitted_params = result.x
 if option == 'pH':
 	#pHの入力
 	pH_input = st.slider("pH", 3.8, 6.4, 6.0, step=0.1)
-    n0_input = st.slider("N$_0$", 1.0, 6.8, 3.0, step=0.2)
+    	n0_input = st.slider("N$_0$", 1.0, 6.8, 3.0, step=0.2)
 
 	#pHの値によるグラフの作成
 	dpH = d_out[d_out['pH'] == pH_input]
@@ -137,7 +137,7 @@ if option == 'pH':
 if option == 'a$_w$':
 	#awの入力
 	aw_input = st.slider("a$_w$", 0.89, 1.00, 0.97, step=0.005)
-    #n0_input = st.slider("N$_0$", 1.0, 6.8, 3.0, step=0.2)
+    	n0_input = st.slider("N$_0$", 1.0, 6.8, 3.0, step=0.2)
     
 	#Saltの値によるグラフの作成
 	daw = d_out[d_out['aw'] == aw_input]
@@ -188,7 +188,7 @@ if option == 'a$_w$':
 if option == 'Temperature':
 	#温度の入力
 	temperature_input = st.slider("Temperature", 4.0, 30.0, 20.0, step=0.1)
-    n0_input = st.slider("N$_0$", 1.0, 6.8, 3.0, step=0.2)
+    	n0_input = st.slider("N$_0$", 1.0, 6.8, 3.0, step=0.2)
 
 	#温度の値によるグラフの作成
 	dTemperature = d_out[d_out['Temp'] == temperature_input]
@@ -196,11 +196,11 @@ if option == 'Temperature':
 	dTemperature_ng = dTemperature[dTemperature['gng'] == 0]
 
 	#x軸はpH
-    x = np.arange(3.5, 7, 0.01)
+    	x = np.arange(3.5, 7, 0.01)
 	#y軸は水分活性
 	y = np.arange(0.88, 1.00, 0.0001)
 	#z軸は温度
-    z = np.arange(3, 35, 0.01)
+    	z = np.arange(3, 35, 0.01)
 
 	#P = 1-(1-f(x)) **n # シングルヒットモデルへのロジスティック回帰の当てはめ
 	def func(x,y):
