@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
+from scipy.optimize import minimize
 
 #データの読み込み
 @st.cache(allow_output_mutation=True)
