@@ -214,12 +214,12 @@ if option == 'Temperature':
 	def func(x,y):
 		eta = (
 		    fitted_params[0] +
-		    fitted_params[1] * x +
-		    fitted_params[2] * y +
-		    fitted_params[3] * aw_input +
-		    fitted_params[4] * (x * y) +
-		    fitted_params[5] * (x * aw_input) +
-		    fitted_params[6] * (y * aw_input)
+		    fitted_params[1] * temperature_input +
+		    fitted_params[2] * x +
+		    fitted_params[3] * y +
+		    fitted_params[4] * (temperature_input * x) +
+		    fitted_params[5] * (temperature_input * y) +
+		    fitted_params[6] * (x * y)
 		)
 		# 改良された確率計算式
 		base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
