@@ -142,7 +142,7 @@ if option == 'pH':
 
 if option == 'Water activity':
 	#awの入力
-	aw_input = st.slider("a$_w$", 0.89, 1.00, 0.97, step=0.005)
+	aw_input = st.slider("a$_w$", 0.890, 1.000, 0.970, step=0.005)
 	n0_input = st.slider("N$_0$", 1.0, 6.8, 3.0, step=0.2)
 	
 	#Saltの値によるグラフの作成
