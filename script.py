@@ -87,40 +87,40 @@ fitted_params = result.x
 if option == 'pH':
 	#pHの入力
 	pH_input = st.slider("pH", 3.8, 6.4, 6.0, step=0.1)
-    	n0_input = st.slider("N$_0$", 1.0, 6.8, 3.0, step=0.2)
-
+	n0_input = st.slider("N$_0$", 1.0, 6.8, 3.0, step=0.2)
+	
 	#pHの値によるグラフの作成
 	dpH = d_out[d_out['pH'] == pH_input]
 	dpH_g = dpH[dpH['gng'] == 1]
 	dpH_ng = dpH[dpH['gng'] == 0]
-
-
+	
+	
 	#x軸は温度
 	x = np.arange(3, 35, 0.01)
 	#y軸は水分活性
 	y = np.arange(0.88, 1.00, 0.0001)
 	#z軸はph (%)
 	z = np.arange(3.5, 7, 0.01)
-
+	
 	#P = 1-(1-f(x)) **n # シングルヒットモデルへのロジスティック回帰の当てはめ
 	def func(x,y):
-        eta = (
-            fitted_params[0] +
-            fitted_params[1] * x +
-            fitted_params[2] * pH_input +
-            fitted_params[3] * y +
-            fitted_params[4] * (x * pH_input) +
-            fitted_params[5] * (x * y) +
-            fitted_params[6] * (pH_input * y)
-            )
-        # 改良された確率計算式
-        base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
+	eta = (
+	    fitted_params[0] +
+	    fitted_params[1] * x +
+	    fitted_params[2] * pH_input +
+	    fitted_params[3] * y +
+	    fitted_params[4] * (x * pH_input) +
+	    fitted_params[5] * (x * y) +
+	    fitted_params[6] * (pH_input * y)
+	    )
+	# 改良された確率計算式
+	base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
 		P = 1 - (1 - base_prob) ** n0_input
-        return P
-
+	return P
+	
 	X, Y = np.meshgrid(x, y)
 	Z = func(X, Y)
-
+	
 	fig, ax = plt.subplots()
 	im = ax.imshow(Z, extent=[3, 35, 0.88, 1.00], origin='lower', aspect='auto')
 	plt.colorbar(im, ax=ax, label='Probability of growth')
@@ -137,40 +137,40 @@ if option == 'pH':
 if option == 'a$_w$':
 	#awの入力
 	aw_input = st.slider("a$_w$", 0.89, 1.00, 0.97, step=0.005)
-    	n0_input = st.slider("N$_0$", 1.0, 6.8, 3.0, step=0.2)
-    
+	n0_input = st.slider("N$_0$", 1.0, 6.8, 3.0, step=0.2)
+	
 	#Saltの値によるグラフの作成
 	daw = d_out[d_out['aw'] == aw_input]
 	daw_g = daw[daw['gng'] == 1]
 	daw_ng = daw[daw['gng'] == 0]
-
-
+	
+	
 	#x軸は温度
 	x = np.arange(3, 35, 0.01)
 	#y軸はph
 	y = np.arange(3.5, 7, 0.01)
 	#z軸は水分活性
 	z = np.arange(0.88, 1.00, 0.0001)
-
+	
 	#P = 1-(1-f(x)) **n # シングルヒットモデルへのロジスティック回帰の当てはめ
 	def func(x,y):
-        eta = (
-            fitted_params[0] +
-            fitted_params[1] * x +
-            fitted_params[2] * y +
-            fitted_params[3] * aw_input +
-            fitted_params[4] * (x * y) +
-            fitted_params[5] * (x * aw_input) +
-            fitted_params[6] * (y * aw_input)
-            )
-        # 改良された確率計算式
-        base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
+	eta = (
+	    fitted_params[0] +
+	    fitted_params[1] * x +
+	    fitted_params[2] * y +
+	    fitted_params[3] * aw_input +
+	    fitted_params[4] * (x * y) +
+	    fitted_params[5] * (x * aw_input) +
+	    fitted_params[6] * (y * aw_input)
+	    )
+	# 改良された確率計算式
+	base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
 		P = 1 - (1 - base_prob) ** n0_input
-        return P
-
+	return P
+	
 	X, Y = np.meshgrid(x, y)
 	Z = func(X, Y)
-
+	
 	fig, ax = plt.subplots()
 	im = ax.imshow(Z, extent=[3, 35, 3.5, 7], origin='lower', aspect='auto')
 	plt.colorbar(im, ax=ax, label='Probability of growth')
@@ -188,39 +188,39 @@ if option == 'a$_w$':
 if option == 'Temperature':
 	#温度の入力
 	temperature_input = st.slider("Temperature", 4.0, 30.0, 20.0, step=0.1)
-    	n0_input = st.slider("N$_0$", 1.0, 6.8, 3.0, step=0.2)
-
+	n0_input = st.slider("N$_0$", 1.0, 6.8, 3.0, step=0.2)
+	
 	#温度の値によるグラフの作成
 	dTemperature = d_out[d_out['Temp'] == temperature_input]
 	dTemperature_g = dTemperature[dTemperature['gng'] == 1]
 	dTemperature_ng = dTemperature[dTemperature['gng'] == 0]
-
+	
 	#x軸はpH
-    	x = np.arange(3.5, 7, 0.01)
+	x = np.arange(3.5, 7, 0.01)
 	#y軸は水分活性
 	y = np.arange(0.88, 1.00, 0.0001)
 	#z軸は温度
-    	z = np.arange(3, 35, 0.01)
-
+	z = np.arange(3, 35, 0.01)
+	
 	#P = 1-(1-f(x)) **n # シングルヒットモデルへのロジスティック回帰の当てはめ
 	def func(x,y):
-        eta = (
-            fitted_params[0] +
-            fitted_params[1] * x +
-            fitted_params[2] * y +
-            fitted_params[3] * aw_input +
-            fitted_params[4] * (x * y) +
-            fitted_params[5] * (x * aw_input) +
-            fitted_params[6] * (y * aw_input)
-            )
-        # 改良された確率計算式
-        base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
+	eta = (
+	    fitted_params[0] +
+	    fitted_params[1] * x +
+	    fitted_params[2] * y +
+	    fitted_params[3] * aw_input +
+	    fitted_params[4] * (x * y) +
+	    fitted_params[5] * (x * aw_input) +
+	    fitted_params[6] * (y * aw_input)
+	    )
+	# 改良された確率計算式
+	base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
 		P = 1 - (1 - base_prob) ** n0_input
-        return P
-
+	return P
+	
 	X, Y = np.meshgrid(x, y)
 	Z = func(X, Y)
-
+	
 	fig, ax = plt.subplots()
 	im = ax.imshow(Z, extent=[3.5, 7, 0.88, 1.00], origin='lower', aspect='auto')
 	plt.colorbar(im, ax=ax, label='Probability of growth')
