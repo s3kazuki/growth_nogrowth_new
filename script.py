@@ -104,19 +104,19 @@ if option == 'pH':
 	
 	#P = 1-(1-f(x)) **n # シングルヒットモデルへのロジスティック回帰の当てはめ
 	def func(x,y):
-	eta = (
-	    fitted_params[0] +
-	    fitted_params[1] * x +
-	    fitted_params[2] * pH_input +
-	    fitted_params[3] * y +
-	    fitted_params[4] * (x * pH_input) +
-	    fitted_params[5] * (x * y) +
-	    fitted_params[6] * (pH_input * y)
-	    )
-	# 改良された確率計算式
-	base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
-		P = 1 - (1 - base_prob) ** n0_input
-	return P
+		eta = (
+		    fitted_params[0] +
+		    fitted_params[1] * x +
+		    fitted_params[2] * pH_input +
+		    fitted_params[3] * y +
+		    fitted_params[4] * (x * pH_input) +
+		    fitted_params[5] * (x * y) +
+		    fitted_params[6] * (pH_input * y)
+		)
+		# 改良された確率計算式
+		base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
+			P = 1 - (1 - base_prob) ** n0_input
+		return P
 	
 	X, Y = np.meshgrid(x, y)
 	Z = func(X, Y)
@@ -154,19 +154,19 @@ if option == 'a$_w$':
 	
 	#P = 1-(1-f(x)) **n # シングルヒットモデルへのロジスティック回帰の当てはめ
 	def func(x,y):
-	eta = (
-	    fitted_params[0] +
-	    fitted_params[1] * x +
-	    fitted_params[2] * y +
-	    fitted_params[3] * aw_input +
-	    fitted_params[4] * (x * y) +
-	    fitted_params[5] * (x * aw_input) +
-	    fitted_params[6] * (y * aw_input)
-	    )
-	# 改良された確率計算式
-	base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
-		P = 1 - (1 - base_prob) ** n0_input
-	return P
+		eta = (
+		    fitted_params[0] +
+		    fitted_params[1] * x +
+		    fitted_params[2] * y +
+		    fitted_params[3] * aw_input +
+		    fitted_params[4] * (x * y) +
+		    fitted_params[5] * (x * aw_input) +
+		    fitted_params[6] * (y * aw_input)
+		)
+		# 改良された確率計算式
+		base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
+			P = 1 - (1 - base_prob) ** n0_input
+		return P
 	
 	X, Y = np.meshgrid(x, y)
 	Z = func(X, Y)
@@ -204,19 +204,19 @@ if option == 'Temperature':
 	
 	#P = 1-(1-f(x)) **n # シングルヒットモデルへのロジスティック回帰の当てはめ
 	def func(x,y):
-	eta = (
-	    fitted_params[0] +
-	    fitted_params[1] * x +
-	    fitted_params[2] * y +
-	    fitted_params[3] * aw_input +
-	    fitted_params[4] * (x * y) +
-	    fitted_params[5] * (x * aw_input) +
-	    fitted_params[6] * (y * aw_input)
-	    )
-	# 改良された確率計算式
-	base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
-		P = 1 - (1 - base_prob) ** n0_input
-	return P
+		eta = (
+		    fitted_params[0] +
+		    fitted_params[1] * x +
+		    fitted_params[2] * y +
+		    fitted_params[3] * aw_input +
+		    fitted_params[4] * (x * y) +
+		    fitted_params[5] * (x * aw_input) +
+		    fitted_params[6] * (y * aw_input)
+		)
+		# 改良された確率計算式
+		base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
+			P = 1 - (1 - base_prob) ** n0_input
+		return P
 	
 	X, Y = np.meshgrid(x, y)
 	Z = func(X, Y)
