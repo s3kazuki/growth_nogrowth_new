@@ -23,6 +23,8 @@ d_out['aw'] = round(d_out['aw'], 2)
 st.title("Growth/no growth boundary")
 st.sidebar.title("Input data set(rounded)")
 st.sidebar.write(d_out)
+st.sidebar.title("Input data set(real)")
+st.sidebar.write(d)
 st.sidebar.title("Summary of data")
 st.sidebar.write(d_out.describe())
 
