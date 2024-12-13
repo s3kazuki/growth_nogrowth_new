@@ -54,7 +54,7 @@ def probability(params, data):
     )
     # 改良された確率計算式
     base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
-    p = 1 - (1 - base_prob) ** n
+    p = 1 - (1 - base_prob) ** (10**n)
     return p
 
 # 尤度関数の定義
@@ -121,7 +121,7 @@ if option == 'pH':
 		)
 		# 改良された確率計算式
 		base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
-		P = 1 - (1 - base_prob) ** n0_input
+		P = 1 - (1 - base_prob) ** (10**n0_input)
 		return P
 	
 	X, Y = np.meshgrid(x, y)
@@ -172,7 +172,7 @@ if option == 'Water activity':
 		)
 		# 改良された確率計算式
 		base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
-		P = 1 - (1 - base_prob) ** n0_input
+		P = 1 - (1 - base_prob) ** (10**n0_input)
 		return P
 	
 	X, Y = np.meshgrid(x, y)
@@ -223,7 +223,7 @@ if option == 'Temperature':
 		)
 		# 改良された確率計算式
 		base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
-		P = 1 - (1 - base_prob) ** n0_input
+		P = 1 - (1 - base_prob) ** (10**n0_input)
 		return P
 	
 	X, Y = np.meshgrid(x, y)
