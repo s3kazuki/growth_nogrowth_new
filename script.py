@@ -225,7 +225,7 @@ if option == 'Temperature':
 	#P = 1-(1-f(x)) **n # シングルヒットモデルへのロジスティック回帰の当てはめ
 	def func(x,y):
 		eta = (
-			fitted_params[0] +
+			fitted_params[0] + 
 			fitted_params[1] * temperature_input +
 			fitted_params[2] * x +
 			fitted_params[3] * y_bw +
