@@ -45,13 +45,13 @@ def probability(params, data):
     β0, β1, β2, β3, β4, β5, β6, β7, β8, β9 = params
     # 線形予測子 η の計算
     eta = (
-        β0 +
-        β1 * Temp +
-        β2 * pH +
-        β3 * bw +
-        β4 * (Temp * pH) +
-        β5 * (Temp * bw) +
-        β6 * (pH * bw) +
+	β0 +
+	β1 * Temp +
+	β2 * pH +
+	β3 * bw +
+	β4 * (Temp * pH) +
+	β5 * (Temp * bw) +
+	β6 * (pH * bw) +
 	β7 * (Temp**2) +
 	β8 * (pH**2) +
 	β9 * (bw**2) +
@@ -115,16 +115,16 @@ if option == 'pH':
 	#P = 1-(1-f(x)) **n # シングルヒットモデルへのロジスティック回帰の当てはめ
 	def func(x,y):
 		eta = (
-		    fitted_params[0] +
-		    fitted_params[1] * x +
-		    fitted_params[2] * pH_input +
-		    fitted_params[3] * y_bw +
-		    fitted_params[4] * (x * pH_input) +
-		    fitted_params[5] * (x * y_bw) +
-		    fitted_params[6] * (pH_input * y_bw) +
-		    fitted_params[7] * (x**2) +
-		    fitted_params[8] * (pH_input**2) +
-		    fitted_params[9] * (y_bw**2)
+			fitted_params[0] +
+			fitted_params[1] * x +
+			fitted_params[2] * pH_input +
+			fitted_params[3] * y_bw +
+			fitted_params[4] * (x * pH_input) +
+			fitted_params[5] * (x * y_bw) +
+			fitted_params[6] * (pH_input * y_bw) +
+			fitted_params[7] * (x**2) +
+			fitted_params[8] * (pH_input**2) +
+			fitted_params[9] * (y_bw**2)
 		)
 		# 改良された確率計算式
 		base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
@@ -170,16 +170,16 @@ if option == 'Water activity':
 	#P = 1-(1-f(x)) **n # シングルヒットモデルへのロジスティック回帰の当てはめ
 	def func(x,y):
 		eta = (
-		    fitted_params[0] +
-		    fitted_params[1] * x +
-		    fitted_params[2] * y +
-		    fitted_params[3] * bw_input +
-		    fitted_params[4] * (x * y) +
-		    fitted_params[5] * (x * bw_input) +
-		    fitted_params[6] * (y * bw_input) +
-		    fitted_params[7] * (x**2) +
-		    fitted_params[8] * (y**2) +
-		    fitted_params[9] * (bw_input**2)
+			fitted_params[0] +
+			fitted_params[1] * x +
+			fitted_params[2] * y +
+			fitted_params[3] * bw_input +
+			fitted_params[4] * (x * y) +
+			fitted_params[5] * (x * bw_input) +
+			fitted_params[6] * (y * bw_input) +
+			fitted_params[7] * (x**2) +
+			fitted_params[8] * (y**2) +
+			fitted_params[9] * (bw_input**2)
 		)
 		# 改良された確率計算式
 		base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
@@ -225,16 +225,16 @@ if option == 'Temperature':
 	#P = 1-(1-f(x)) **n # シングルヒットモデルへのロジスティック回帰の当てはめ
 	def func(x,y):
 		eta = (
-		    fitted_params[0] +
-		    fitted_params[1] * temperature_input +
-		    fitted_params[2] * x +
-		    fitted_params[3] * y_bw +
-		    fitted_params[4] * (temperature_input * x) +
-		    fitted_params[5] * (temperature_input * y_bw) +
-		    fitted_params[6] * (x * y_bw)
-		    fitted_params[7] * (temperature_input**2) +
-		    fitted_params[8] * (x**2) +
-		    fitted_params[9] * (y_bw**2)
+			fitted_params[0] +
+			fitted_params[1] * temperature_input +
+			fitted_params[2] * x +
+			fitted_params[3] * y_bw +
+			fitted_params[4] * (temperature_input * x) +
+			fitted_params[5] * (temperature_input * y_bw) +
+			fitted_params[6] * (x * y_bw)
+			fitted_params[7] * (temperature_input**2) +
+			fitted_params[8] * (x**2) +
+			fitted_params[9] * (y_bw**2)
 		)
 		# 改良された確率計算式
 		base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
