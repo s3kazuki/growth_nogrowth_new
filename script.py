@@ -108,7 +108,6 @@ if option == 'pH':
 	x = np.arange(3, 35, 0.01)
 	#y軸は水分活性
 	y = np.arange(0.88, 1.00, 0.0001)
-	y_bw = (1-y)**(1/2) #入力用
 	#z軸はph (%)
 	z = np.arange(3.5, 7, 0.01)
 	
@@ -118,13 +117,13 @@ if option == 'pH':
 			fitted_params[0] +
 			fitted_params[1] * x +
 			fitted_params[2] * pH_input +
-			fitted_params[3] * y_bw +
+			fitted_params[3] * ((1-y)**(1/2)) +
 			fitted_params[4] * (x * pH_input) +
-			fitted_params[5] * (x * y_bw) +
-			fitted_params[6] * (pH_input * y_bw) +
+			fitted_params[5] * (x * ((1-y)**(1/2))) +
+			fitted_params[6] * (pH_input * ((1-y)**(1/2))) +
 			fitted_params[7] * (x**2) +
 			fitted_params[8] * (pH_input**2) +
-			fitted_params[9] * (y_bw**2)
+			fitted_params[9] * (((1-y)**(1/2))**2)
 		)
 		# 改良された確率計算式
 		base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
@@ -218,7 +217,6 @@ if option == 'Temperature':
 	x = np.arange(3.5, 7, 0.01)
 	#y軸は水分活性
 	y = np.arange(0.88, 1.00, 0.0001)
-	y_bw = (1-y)**(1/2)
 	#z軸は温度
 	z = np.arange(3, 35, 0.01)
 	
@@ -227,13 +225,13 @@ if option == 'Temperature':
 		eta = (fitted_params[0] +
 		       fitted_params[1] * temperature_input +
 		       fitted_params[2] * x +
-		       fitted_params[3] * y_bw +
+		       fitted_params[3] * ((1-y)**(1/2)) +
 		       fitted_params[4] * (temperature_input * x) +
-		       fitted_params[5] * (temperature_input * y_bw) +
-		       fitted_params[6] * (x * y_bw) +
+		       fitted_params[5] * (temperature_input * ((1-y)**(1/2))) +
+		       fitted_params[6] * (x * ((1-y)**(1/2))) +
 		       fitted_params[7] * (temperature_input**2) +
 		       fitted_params[8] * (x**2) +
-		       fitted_params[9] * (y_bw**2)
+		       fitted_params[9] * (((1-y)**(1/2))**2)
 		)
 		# 改良された確率計算式
 		base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
