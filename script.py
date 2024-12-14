@@ -54,7 +54,7 @@ def probability(params, data):
 	β6 * (pH * bw) +
 	β7 * (Temp**2) +
 	β8 * (pH**2) +
-	β9 * (bw**2) +
+	β9 * (bw**2) 
     )
     # 改良された確率計算式
     base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
