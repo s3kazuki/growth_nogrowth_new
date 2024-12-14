@@ -37,20 +37,24 @@ option = st.selectbox(
 def probability(params, data):
     """
     確率 p を計算する関数
-    params: [β0, β1, β2, β3, β4, β5, β6, n] （推定するパラメータ）
-    Temp, pH, Salt: モデルの入力データ
+    params: [β0, β1, β2, β3, β4, β5, β6, β7, β8, β9] （推定するパラメータ）
+    Temp, pH, bw, n: モデルの入力データ
     """
     Temp, pH, aw, n = data['Temp'], data['pH'], data['aw'], data['N0']
-    β0, β1, β2, β3, β4, β5, β6 = params
+    bw = (1-aw)**(1/2)
+    β0, β1, β2, β3, β4, β5, β6, β7, β8, β9 = params
     # 線形予測子 η の計算
     eta = (
         β0 +
         β1 * Temp +
         β2 * pH +
-        β3 * aw +
+        β3 * bw +
         β4 * (Temp * pH) +
-        β5 * (Temp * aw) +
-        β6 * (pH * aw)
+        β5 * (Temp * bw) +
+        β6 * (pH * bw) +
+	β7 * (Temp**2) +
+	β8 * (pH**2) +
+	β9 * (bw**2) +
     )
     # 改良された確率計算式
     base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
@@ -61,9 +65,8 @@ def probability(params, data):
 def negative_log_likelihood(params, data):
     """
     負の対数尤度を計算する関数（最適化対象）
-    params: [β0, β1, β2, β3, β4, β5, β6]
-    Temp, pH, Salt, n: 説明変数
-    gng: 応答変数（観測データ, 0 または 1）
+    params: [β0, β1, β2, β3, β4, β5, β6, β7, β8, β9]
+    data: 入力データ
     """
     #gngの定義
     gng = data['gng'] 
@@ -75,7 +78,7 @@ def negative_log_likelihood(params, data):
     return -log_likelihood  # 負の対数尤度を返す
 
 # 初期パラメータの設定
-initial_params = [0.1] * 7  # [β0, β1, ..., β6]
+initial_params = [0.1] * 10  # [β0, β1, ..., β6, β7, β8, β9]
 
 # 最適化の実行
 result = minimize(
@@ -83,7 +86,7 @@ result = minimize(
     initial_params,  # 初期パラメータ
     args=d,  # 関数に渡す追加引数
     method='L-BFGS-B',  # 最適化手法
-    bounds=[(-10, 10)] * 7   # パラメータの範囲
+    bounds=[(-15, 15)] * 10   # パラメータの範囲
 )
 
 # 最適化結果
@@ -105,6 +108,7 @@ if option == 'pH':
 	x = np.arange(3, 35, 0.01)
 	#y軸は水分活性
 	y = np.arange(0.88, 1.00, 0.0001)
+	y_bw = (1-y)**(1/2) #入力用
 	#z軸はph (%)
 	z = np.arange(3.5, 7, 0.01)
 	
@@ -114,10 +118,13 @@ if option == 'pH':
 		    fitted_params[0] +
 		    fitted_params[1] * x +
 		    fitted_params[2] * pH_input +
-		    fitted_params[3] * y +
+		    fitted_params[3] * y_bw +
 		    fitted_params[4] * (x * pH_input) +
-		    fitted_params[5] * (x * y) +
-		    fitted_params[6] * (pH_input * y)
+		    fitted_params[5] * (x * y_bw) +
+		    fitted_params[6] * (pH_input * y_bw) +
+		    fitted_params[7] * (x**2) +
+		    fitted_params[8] * (pH_input**2) +
+		    fitted_params[9] * (y_bw**2)
 		)
 		# 改良された確率計算式
 		base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
@@ -143,6 +150,7 @@ if option == 'pH':
 if option == 'Water activity':
 	#awの入力
 	aw_input = st.slider("a$_w$", 0.890, 1.000, 0.970, step=0.005)
+	bw_input = (1-aw_input)**(1/2)
 	n0_input = st.slider("N$_0$", 1.0, 6.8, 2.6, step=0.2)
 	
 	#Saltの値によるグラフの作成
@@ -165,10 +173,13 @@ if option == 'Water activity':
 		    fitted_params[0] +
 		    fitted_params[1] * x +
 		    fitted_params[2] * y +
-		    fitted_params[3] * aw_input +
+		    fitted_params[3] * bw_input +
 		    fitted_params[4] * (x * y) +
-		    fitted_params[5] * (x * aw_input) +
-		    fitted_params[6] * (y * aw_input)
+		    fitted_params[5] * (x * bw_input) +
+		    fitted_params[6] * (y * bw_input) +
+		    fitted_params[7] * (x**2) +
+		    fitted_params[8] * (y**2) +
+		    fitted_params[9] * (bw_input**2)
 		)
 		# 改良された確率計算式
 		base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
@@ -207,6 +218,7 @@ if option == 'Temperature':
 	x = np.arange(3.5, 7, 0.01)
 	#y軸は水分活性
 	y = np.arange(0.88, 1.00, 0.0001)
+	y_bw = (1-y)**(1/2)
 	#z軸は温度
 	z = np.arange(3, 35, 0.01)
 	
@@ -216,10 +228,13 @@ if option == 'Temperature':
 		    fitted_params[0] +
 		    fitted_params[1] * temperature_input +
 		    fitted_params[2] * x +
-		    fitted_params[3] * y +
+		    fitted_params[3] * y_bw +
 		    fitted_params[4] * (temperature_input * x) +
-		    fitted_params[5] * (temperature_input * y) +
-		    fitted_params[6] * (x * y)
+		    fitted_params[5] * (temperature_input * y_bw) +
+		    fitted_params[6] * (x * y_bw)
+		    fitted_params[7] * (temperature_input**2) +
+		    fitted_params[8] * (x**2) +
+		    fitted_params[9] * (y_bw**2)
 		)
 		# 改良された確率計算式
 		base_prob = 1 / (1 + np.exp(-eta))  # ロジスティック関数
@@ -259,3 +274,4 @@ st.markdown(href, unsafe_allow_html=True)
 
 st.write("Other app: https://scrapbox.io/kentokoyama/web_application")
 st.write("Contact: kento.koyama.123@gmail.com")
+st.write("Datasource: Koutsoumanis et al. (2005) https://www.sciencedirect.com/science/article/abs/pii/S0168160505002400")
