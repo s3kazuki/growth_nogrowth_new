@@ -86,7 +86,7 @@ result = minimize(
     initial_params,  # 初期パラメータ
     args=d,  # 関数に渡す追加引数
     method='L-BFGS-B',  # 最適化手法
-    bounds=[(-15, 15)] * 10   # パラメータの範囲
+    bounds=[(-12, 12)] * 10   # パラメータの範囲
 )
 
 # 最適化結果
@@ -95,7 +95,7 @@ fitted_params = result.x
 if option == 'pH':
 	#pHの入力
 	pH_input = st.slider("pH", 3.8, 6.4, 6.0, step=0.1)
-	n0_input = st.slider("N$_0$", 1.0, 6.8, 2.6, step=0.2)
+	n0_input = st.slider("N$_0$", 0.9, 6.8, 2.6, step=0.1)
 	
 	#pHの値によるグラフの作成
 	dpH = d_out[d_out['pH'] == pH_input]
@@ -150,7 +150,7 @@ if option == 'Water activity':
 	#awの入力
 	aw_input = st.slider("a$_w$", 0.890, 1.000, 0.970, step=0.005)
 	bw_input = (1-aw_input)**(1/2)
-	n0_input = st.slider("N$_0$", 1.0, 6.8, 2.6, step=0.2)
+	n0_input = st.slider("N$_0$", 0.9, 6.8, 2.6, step=0.1)
 	
 	#Saltの値によるグラフの作成
 	daw = d_out[d_out['aw'] == aw_input]
@@ -205,7 +205,7 @@ if option == 'Water activity':
 if option == 'Temperature':
 	#温度の入力
 	temperature_input = st.slider("Temperature", 4.0, 30.0, 20.0, step=0.1)
-	n0_input = st.slider("N$_0$", 1.0, 6.8, 2.6, step=0.2)
+	n0_input = st.slider("N$_0$", 0.9, 6.8, 2.6, step=0.1)
 	
 	#温度の値によるグラフの作成
 	dTemperature = d_out[d_out['Temp'] == temperature_input]
