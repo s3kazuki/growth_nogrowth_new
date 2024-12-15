@@ -204,7 +204,7 @@ if option == 'Water activity':
 
 if option == 'Temperature':
 	#温度の入力
-	temperature_input = st.slider("Temperature", 4.0, 30.0, 15.0, step=1)
+	temperature_input = st.slider("Temperature", 4.0, 30.0, 15.0, step=1.0)
 	n0_input = st.slider("N$_0$", 0.9, 6.8, 2.6, step=0.1)
 	
 	#温度の値によるグラフの作成
